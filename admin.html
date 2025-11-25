@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiva Admin Panel</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Admin Stylesheet -->
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <div class="login-header">
+                <h1>Kiva Admin Panel</h1>
+                <p>Enter password to access</p>
+            </div>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <input type="password" id="adminPassword" placeholder="Enter password" required>
+                    <i class="fas fa-lock"></i>
+                </div>
+                <button type="submit" class="login-button">
+                    <span>Login</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <p class="hint">Default password: <strong>kiva2025</strong></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-panel" style="display: none;">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="header-left">
+                <h1><i class="fas fa-crown"></i> Kiva Admin Panel</h1>
+            </div>
+            <div class="header-right">
+                <button class="header-btn" id="previewBtn" title="Preview Website">
+                    <i class="fas fa-eye"></i> Preview
+                </button>
+                <button class="header-btn" id="saveBtn" title="Save Changes">
+                    <i class="fas fa-save"></i> Save
+                </button>
+                <button class="header-btn" id="logoutBtn" title="Logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="admin-content">
+            <!-- Sidebar -->
+            <aside class="admin-sidebar">
+                <div class="language-selector">
+                    <label><i class="fas fa-language"></i> Edit Language:</label>
+                    <select id="languageSelect">
+                        <option value="en">English</option>
+                        <option value="ar">العربية (Arabic)</option>
+                    </select>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <button class="nav-btn active" data-section="hero">
+                        <i class="fas fa-home"></i> Hero Section
+                    </button>
+                    <button class="nav-btn" data-section="about">
+                        <i class="fas fa-info-circle"></i> About Section
+                    </button>
+                    <button class="nav-btn" data-section="services">
+                        <i class="fas fa-briefcase"></i> Services
+                    </button>
+                    <button class="nav-btn" data-section="portfolio">
+                        <i class="fas fa-images"></i> Portfolio
+                    </button>
+                    <button class="nav-btn" data-section="contact">
+                        <i class="fas fa-envelope"></i> Contact Info
+                    </button>
+                    <button class="nav-btn" data-section="navbar">
+                        <i class="fas fa-bars"></i> Navbar Labels
+                    </button>
+                    <button class="nav-btn" data-section="settings">
+                        <i class="fas fa-cog"></i> Settings
+                    </button>
+                </nav>
+            </aside>
+
+            <!-- Editor Area -->
+            <main class="editor-area">
+                <!-- Hero Section Editor -->
+                <section id="heroEditor" class="editor-section active">
+                    <h2><i class="fas fa-home"></i> Hero Section</h2>
+                    <p class="section-description">Edit the main hero section slogan and subtitle</p>
+
+                    <div class="form-group">
+                        <label>Slogan Line 1</label>
+                        <input type="text" id="heroSlogan1" class="form-control" placeholder="We don't create ads…">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Slogan Line 2 (Highlighted)</label>
+                        <input type="text" id="heroSlogan2" class="form-control" placeholder="We create moments.">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Subtitle</label>
+                        <input type="text" id="heroSubtitle" class="form-control"
+                            placeholder="Transforming brands into unforgettable experiences">
+                    </div>
+                </section>
+
+                <!-- About Section Editor -->
+                <section id="aboutEditor" class="editor-section">
+                    <h2><i class="fas fa-info-circle"></i> About Section</h2>
+                    <p class="section-description">Edit section header and the three about cards</p>
+
+                    <div class="form-group">
+                        <label>Section Tag</label>
+                        <input type="text" id="aboutTag" class="form-control" placeholder="Who We Are">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Section Title</label>
+                        <input type="text" id="aboutTitle" class="form-control" placeholder="About Kiva">
+                    </div>
+
+                    <div class="cards-container" id="aboutCards">
+                        <!-- Cards will be dynamically loaded -->
+                    </div>
+                </section>
+
+                <!-- Services Section Editor -->
+                <section id="servicesEditor" class="editor-section">
+                    <h2><i class="fas fa-briefcase"></i> Services</h2>
+                    <p class="section-description">Manage your services - add, edit, or remove</p>
+
+                    <div class="form-group">
+                        <label>Section Tag</label>
+                        <input type="text" id="servicesTag" class="form-control" placeholder="What We Do">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Section Title</label>
+                        <input type="text" id="servicesTitle" class="form-control" placeholder="Our Services">
+                    </div>
+
+                    <button class="add-btn" id="addServiceBtn">
+                        <i class="fas fa-plus"></i> Add New Service
+                    </button>
+
+                    <div class="items-container" id="servicesContainer">
+                        <!-- Services will be dynamically loaded -->
+                    </div>
+                </section>
+
+                <!-- Portfolio Section Editor -->
+                <section id="portfolioEditor" class="editor-section">
+                    <h2><i class="fas fa-images"></i> Portfolio</h2>
+                    <p class="section-description">Manage portfolio items with images</p>
+
+                    <div class="form-group">
+                        <label>Section Tag</label>
+                        <input type="text" id="portfolioTag" class="form-control" placeholder="Our Work">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Section Title</label>
+                        <input type="text" id="portfolioTitle" class="form-control" placeholder="Portfolio">
+                    </div>
+
+                    <button class="add-btn" id="addPortfolioBtn">
+                        <i class="fas fa-plus"></i> Add New Project
+                    </button>
+
+                    <div class="items-container" id="portfolioContainer">
+                        <!-- Portfolio items will be dynamically loaded -->
+                    </div>
+                </section>
+
+                <!-- Contact Section Editor -->
+                <section id="contactEditor" class="editor-section">
+                    <h2><i class="fas fa-envelope"></i> Contact Information</h2>
+                    <p class="section-description">Edit contact details and social media links</p>
+
+                    <div class="form-group">
+                        <label>Section Tag</label>
+                        <input type="text" id="contactTag" class="form-control" placeholder="Get In Touch">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Section Title</label>
+                        <input type="text" id="contactTitle" class="form-control" placeholder="Contact Us">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Heading</label>
+                        <input type="text" id="contactHeading" class="form-control"
+                            placeholder="Let's Create Something Amazing">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="contactDescription" class="form-control" rows="3"
+                            placeholder="Ready to transform your brand?"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-envelope"></i> Email</label>
+                            <input type="email" id="contactEmail" class="form-control" placeholder="hello@kiva.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-phone"></i> Phone</label>
+                            <input type="text" id="contactPhone" class="form-control" placeholder="+1 (555) 123-4567">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-map-marker-alt"></i> Location</label>
+                        <input type="text" id="contactLocation" class="form-control"
+                            placeholder="123 Creative Street, Marketing City">
+                    </div>
+
+                    <h3>Social Media Links</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fab fa-facebook"></i> Facebook</label>
+                            <input type="url" id="socialFacebook" class="form-control" placeholder="https://...">
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fab fa-instagram"></i> Instagram</label>
+                            <input type="url" id="socialInstagram" class="form-control" placeholder="https://...">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fab fa-twitter"></i> Twitter</label>
+                            <input type="url" id="socialTwitter" class="form-control" placeholder="https://...">
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fab fa-linkedin"></i> LinkedIn</label>
+                            <input type="url" id="socialLinkedin" class="form-control" placeholder="https://...">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Navbar Editor -->
+                <section id="navbarEditor" class="editor-section">
+                    <h2><i class="fas fa-bars"></i> Navbar Labels</h2>
+                    <p class="section-description">Edit navigation menu labels</p>
+
+                    <div class="form-group">
+                        <label>Home</label>
+                        <input type="text" id="navHome" class="form-control" placeholder="Home">
+                    </div>
+
+                    <div class="form-group">
+                        <label>About</label>
+                        <input type="text" id="navAbout" class="form-control" placeholder="About">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Services</label>
+                        <input type="text" id="navServices" class="form-control" placeholder="Services">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Portfolio</label>
+                        <input type="text" id="navPortfolio" class="form-control" placeholder="Portfolio">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contact</label>
+                        <input type="text" id="navContact" class="form-control" placeholder="Contact">
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settingsEditor" class="editor-section">
+                    <h2><i class="fas fa-cog"></i> Settings</h2>
+                    <p class="section-description">Manage data and settings</p>
+
+                    <div class="settings-grid">
+                        <div class="setting-card">
+                            <i class="fas fa-download"></i>
+                            <h3>Export Data</h3>
+                            <p>Download all website data as JSON file</p>
+                            <button class="setting-btn" id="exportBtn">Export</button>
+                        </div>
+
+                        <div class="setting-card">
+                            <i class="fas fa-upload"></i>
+                            <h3>Import Data</h3>
+                            <p>Upload and restore data from JSON file</p>
+                            <input type="file" id="importFile" accept=".json" style="display: none;">
+                            <button class="setting-btn" id="importBtn">Import</button>
+                        </div>
+
+                        <div class="setting-card">
+                            <i class="fas fa-undo"></i>
+                            <h3>Reset Settings</h3>
+                            <p>Reset all settings to default values</p>
+                            <button class="setting-btn" id="resetBtn">Reset</button>
+
+                            <!-- Notification Toast -->
+                            <div id="toast" class="toast"></div>
+
+                            <!-- Scripts -->
+                            <script src="data.js"></script>
+                            <script src="admin.js"></script>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>
